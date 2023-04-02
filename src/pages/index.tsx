@@ -1,4 +1,5 @@
 import { styled } from "@/styles"
+import Head from "next/head"
 
 const Button = styled('button', {
   backgroundColor: "$green500",
@@ -22,6 +23,9 @@ const Button = styled('button', {
 export default function Home() {
   return (
     <>
+    <Head>
+      <title>Ignite | Ig.Shop</title>
+    </Head>
       <h1>Olá Mundo</h1>
       <Button>
         <span>Teste</span>
