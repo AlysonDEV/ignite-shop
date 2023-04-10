@@ -1,6 +1,6 @@
 import { stripeAPI } from "@/lib/stripe"
 import { ImageContainer, ProductContainer, ProductDetails } from "@/styles/pages/product"
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import Stripe from "stripe"
@@ -34,7 +34,22 @@ export default function Products ({product}: ProductProps) {
   )
 }
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      {
+        params: {id: "prod_NdrgvhpJPpRyDz"}
+      }
+    ],
+    fallback: true
+  }
+}
+
 export const getStaticProps: GetStaticProps<any, {id: string}> = async ({ params }) => {
+  if (!params) {
+    throw new Error("Params não foi definido!");
+  }
+
   const productId = params.id;
 
   const product = await stripeAPI.products.retrieve(productId, {
